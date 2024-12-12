@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Creating databases"
 docker compose run --rm server create_db
 

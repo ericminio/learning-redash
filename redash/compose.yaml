@@ -13,6 +13,7 @@ services:
       - "5000:5000"
     environment:
       REDASH_WEB_WORKERS: 4
+      REDASH_ENFORCE_CSRF: false
   scheduler:
     <<: *redash-service
     command: scheduler

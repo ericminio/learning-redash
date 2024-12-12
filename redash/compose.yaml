@@ -1,5 +1,5 @@
 x-redash-service: &redash-service
-  image: redash/redash:10.1.0.b50633
+  image: redash/redash:preview
   depends_on:
     - postgres
     - redis

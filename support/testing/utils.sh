@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function oneliner {
-    tr -d '\n'
+    tr -d '\r' | tr -d '\n'
 }
 
 function shrink {
@@ -26,7 +26,7 @@ function colon {
 function json {
     oneliner | opening | closing  | comma | colon | trim
 }
-
 function json_extract {
     grep -o "\"$1\":[^,}]*" | head -1 | cut -d':' -f2 | trim | sed 's/"//g'
 }
+

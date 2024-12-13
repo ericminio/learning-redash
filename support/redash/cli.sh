@@ -1,8 +1,5 @@
 #!/bin/bash
 
-source ./__tests__/helpers.sh
-source ./__tests__/waiting.sh
-
 function create_query {
     curl \
         --request POST \
@@ -51,16 +48,17 @@ function read_query_result_as_csv {
         http://localhost:5000/api/query_results/$1.csv
 }
 
+function read_query_result_as_json {   
+    curl \
+        --request GET \
+        --header "Authorization: Key 52Ic6pgnq0P2gSgb0f1V778Y4gH8pu0p1P4J8b5s" \
+        --header "Content-Type: application/json" \
+        -L \
+        -s \
+        http://localhost:5000/api/query_results/$1.json
+}
+
 function job_ready {
     read_job $1 | json_extract "status" | grep "3" | wc -l
 }
 
-./data/create.sh
-
-queryId=$(create_query | json_extract "id")
-jobId=$(create_job $queryId | json_extract "id")
-
-waiting job job_ready $jobId
-
-queryResultId=$(read_job $jobId | json_extract "query_result_id")
-read_query_result_as_csv $queryResultId | tail -n +2

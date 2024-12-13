@@ -14,6 +14,7 @@ function create_query {
             "data_source_id": 1
         }' \
         -L \
+        -s \
         http://localhost:5000/api/queries 
 }
 
@@ -26,6 +27,7 @@ function create_job {
             "max_age": 0
         }' \
         -L \
+        -s \
         http://localhost:5000/api/queries/$1/results 
 }
 
@@ -35,6 +37,7 @@ function read_job {
         --header "Authorization: Key 52Ic6pgnq0P2gSgb0f1V778Y4gH8pu0p1P4J8b5s" \
         --header "Content-Type: application/json" \
         -L \
+        -s \
         http://localhost:5000/api/jobs/$1
 }
 
@@ -44,6 +47,7 @@ function read_query_result_as_csv {
         --header "Authorization: Key 52Ic6pgnq0P2gSgb0f1V778Y4gH8pu0p1P4J8b5s" \
         --header "Content-Type: application/json" \
         -L \
+        -s \
         http://localhost:5000/api/query_results/$1.csv
 }
 

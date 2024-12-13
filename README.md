@@ -8,5 +8,5 @@ cd redash
 ## Run the tests
 
 ```
-./support/testing/test.sh ./__tests__
+./support/testing/test.sh ./about
 ```

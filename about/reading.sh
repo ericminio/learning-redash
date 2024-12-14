@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source ./support/redash/cli.sh
+source ./support/postgres/cli.sh
 source ./support/testing/utils.sh
 source ./support/testing/waiting.sh
 
@@ -21,11 +22,10 @@ function test_can_read_data {
 }
 
 function populate_data_source {
-    docker exec pg psql exploration -U dev -q -c "drop table if exists products"
-
-    docker exec pg psql exploration -U dev -q -c "create table products(id serial primary key, name text)"
-    docker exec pg psql exploration -U dev -q -c "insert into products(id, name) values (1, 'mouse'),(2, 'keyboard')"
+    execute "drop table if exists products"
+    execute "create table products(id serial primary key, name text)"
+    execute "insert into products(id, name) values (1, 'mouse'),(2, 'keyboard')"
 
     echo "Data source populated"
-    docker exec pg psql exploration -U dev -q -c "select * from products"
+    execute "select * from products"
 }

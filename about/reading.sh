@@ -14,7 +14,7 @@ function test_can_read_data {
     export REDASH_BASE_URL="http://localhost:5000"
 
     echo "Creating Redash query"
-    queryId=$(create_query | json_extract "id")
+    queryId=$(create_query "All products" "SELECT * FROM products" | json_extract "id")
     jobId=$(create_job $queryId | json_extract "id")
 
     waiting "Query result from Redash" job_ready $jobId

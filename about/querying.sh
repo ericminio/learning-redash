@@ -24,7 +24,7 @@ function test_can_read_data {
     actual=$(read_query_result_as_csv $queryResultId | tail -n +2 | oneliner)
     echo "Actual: $actual"
 
-    assertequals "1,mouse2,keyboard" "$actual"
+    assertequals "$actual" "1,mouse2,keyboard" 
 }
 
 function populate_data_source {

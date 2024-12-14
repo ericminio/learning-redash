@@ -7,14 +7,15 @@ source ./support/testing/utils.sh
 source ./support/testing/dir.sh
 source ./support/testing/waiting.sh
 
+export REDASH_API_KEY=$(redash_api_key)
+export REDASH_BASE_URL="http://localhost:5000"
+
+
 function test_can_read_data {
     populate_data_source
 
-    export REDASH_API_KEY=$(redash_api_key)
-    export REDASH_BASE_URL="http://localhost:5000"
-
     echo "Creating Redash query"
-    queryId=$(create_query "All products" "SELECT * FROM products" | json_extract "id")
+    queryId=$(create_query "All products" "SELECT * FROM products" 1 | json_extract "id")
     jobId=$(create_job $queryId | json_extract "id")
 
     waiting "Query result from Redash" job_ready $jobId
@@ -32,3 +33,4 @@ function populate_data_source {
     echo "Data source populated"
     execute "select * from products"
 }
+

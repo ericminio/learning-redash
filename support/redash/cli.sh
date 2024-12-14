@@ -1,16 +1,14 @@
 #!/bin/bash
 
 function create_query {
-    local name=$1
-    local query=$2
     curl \
         --request POST \
         --header "Authorization: Key $REDASH_API_KEY" \
         --header "Content-Type: application/json" \
         --data '{
-            "name": "'"$name"'",
-            "query": "'"$query"'", 
-            "data_source_id": 1
+            "name": "'"$1"'",
+            "query": "'"$2"'", 
+            "data_source_id": '"$3"'
         }' \
         -L \
         -s \
@@ -64,3 +62,12 @@ function job_ready {
     read_job $1 | json_extract "status" | grep "3" | wc -l
 }
 
+function read_data_sources {
+    curl \
+        --request GET \
+        --header "Authorization: Key $REDASH_API_KEY" \
+        --header "Content-Type: application/json" \
+        -L \
+        -s \
+        $REDASH_BASE_URL/api/data_sources
+}

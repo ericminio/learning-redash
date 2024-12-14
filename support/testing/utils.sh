@@ -8,7 +8,7 @@ function shrink {
     sed -E 's/\s+/ /g'
 }
 function trim {
-    sed -E 's/(^\s*|\s*$)//g'
+    sed 's/ *//g'
 }
 
 function opening {

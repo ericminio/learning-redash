@@ -3,6 +3,7 @@
 source ./support/redash/cli.sh
 source ./support/postgres/cli.sh
 source ./support/testing/utils.sh
+source ./support/testing/dir.sh
 source ./support/testing/waiting.sh
 
 function test_can_read_data {
@@ -22,9 +23,7 @@ function test_can_read_data {
 }
 
 function populate_data_source {
-    execute "drop table if exists products"
-    execute "create table products(id serial primary key, name text)"
-    execute "insert into products(id, name) values (1, 'mouse'),(2, 'keyboard')"
+    executeFile /usr/local/src/seeds.sql
 
     echo "Data source populated"
     execute "select * from products"

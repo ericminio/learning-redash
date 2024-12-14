@@ -12,7 +12,7 @@ function create_query {
         }' \
         -L \
         -s \
-        http://localhost:5000/api/queries 
+        $REDASH_BASE_URL/api/queries 
 }
 
 function create_job {
@@ -25,7 +25,7 @@ function create_job {
         }' \
         -L \
         -s \
-        http://localhost:5000/api/queries/$1/results 
+        $REDASH_BASE_URL/api/queries/$1/results 
 }
 
 function read_job {
@@ -35,7 +35,7 @@ function read_job {
         --header "Content-Type: application/json" \
         -L \
         -s \
-        http://localhost:5000/api/jobs/$1
+        $REDASH_BASE_URL/api/jobs/$1
 }
 
 function read_query_result_as_csv {   
@@ -45,7 +45,7 @@ function read_query_result_as_csv {
         --header "Content-Type: application/json" \
         -L \
         -s \
-        http://localhost:5000/api/query_results/$1.csv
+        $REDASH_BASE_URL/api/query_results/$1.csv
 }
 
 function read_query_result_as_json {   
@@ -55,7 +55,7 @@ function read_query_result_as_json {
         --header "Content-Type: application/json" \
         -L \
         -s \
-        http://localhost:5000/api/query_results/$1.json
+        $REDASH_BASE_URL/api/query_results/$1.json
 }
 
 function job_ready {

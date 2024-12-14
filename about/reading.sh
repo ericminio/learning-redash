@@ -10,7 +10,8 @@ source ./support/testing/waiting.sh
 function test_can_read_data {
     populate_data_source
 
-    export REDASH_API_KEY=$(api_key)
+    export REDASH_API_KEY=$(redash_api_key)
+    export REDASH_BASE_URL="http://localhost:5000"
 
     echo "Creating Redash query"
     queryId=$(create_query | json_extract "id")

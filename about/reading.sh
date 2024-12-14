@@ -1,5 +1,6 @@
 #!/bin/bash
 
+source ./support/redash/apikey.sh
 source ./support/redash/cli.sh
 source ./support/postgres/cli.sh
 source ./support/testing/utils.sh
@@ -8,6 +9,8 @@ source ./support/testing/waiting.sh
 
 function test_can_read_data {
     populate_data_source
+
+    export REDASH_API_KEY=$(api_key)
 
     echo "Creating Redash query"
     queryId=$(create_query | json_extract "id")

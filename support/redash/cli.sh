@@ -1,14 +1,9 @@
 #!/bin/bash
 
-function api_key {
-    docker exec redash-postgres-1 psql postgres -U postgres -c "select name, api_key from users where name='admin'" | grep admin | cut -d'|' -f2 | sed 's/ *//g'
-}
-
 function create_query {
-    local apiKey=$(api_key)
     curl \
         --request POST \
-        --header "Authorization: Key $apiKey" \
+        --header "Authorization: Key $REDASH_API_KEY" \
         --header "Content-Type: application/json" \
         --data '{
             "name": "All products",
@@ -21,10 +16,9 @@ function create_query {
 }
 
 function create_job {
-    local apiKey=$(api_key)
     curl \
         --request POST \
-        --header "Authorization: Key $apiKey" \
+        --header "Authorization: Key $REDASH_API_KEY" \
         --header "Content-Type: application/json" \
         --data '{
             "max_age": 0
@@ -35,10 +29,9 @@ function create_job {
 }
 
 function read_job {
-    local apiKey=$(api_key)
     curl \
         --request GET \
-        --header "Authorization: Key $apiKey" \
+        --header "Authorization: Key $REDASH_API_KEY" \
         --header "Content-Type: application/json" \
         -L \
         -s \
@@ -46,10 +39,9 @@ function read_job {
 }
 
 function read_query_result_as_csv {   
-    local apiKey=$(api_key)
     curl \
         --request GET \
-        --header "Authorization: Key $apiKey" \
+        --header "Authorization: Key $REDASH_API_KEY" \
         --header "Content-Type: application/json" \
         -L \
         -s \
@@ -57,10 +49,9 @@ function read_query_result_as_csv {
 }
 
 function read_query_result_as_json {   
-    local apiKey=$(api_key)
     curl \
         --request GET \
-        --header "Authorization: Key $apiKey" \
+        --header "Authorization: Key $REDASH_API_KEY" \
         --header "Content-Type: application/json" \
         -L \
         -s \

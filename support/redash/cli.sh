@@ -6,9 +6,9 @@ function create_query {
         --header "Authorization: Key $REDASH_API_KEY" \
         --header "Content-Type: application/json" \
         --data '{
-            "name": "'"$1"'",
-            "query": "'"$2"'", 
-            "data_source_id": '"$3"'
+            "name": "'"$2"'",
+            "query": "'"$3"'", 
+            "data_source_id": '"$1"'
         }' \
         -L \
         -s \
@@ -16,12 +16,14 @@ function create_query {
 }
 
 function create_job {
+    local parameters=$2
     curl \
         --request POST \
         --header "Authorization: Key $REDASH_API_KEY" \
         --header "Content-Type: application/json" \
         --data '{
-            "max_age": 0
+            "max_age": 0,
+            "parameters": { '"$parameters"' }
         }' \
         -L \
         -s \

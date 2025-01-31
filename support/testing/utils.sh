@@ -33,7 +33,7 @@ function json_extract {
     grep -o "\"$1\":[^,}]*" | head -1 | cut -d':' -f2 | trim | sed 's/"//g'
 }
 
-function csv_remove_headers {
+function remove_first_line {
     tail -n +2
 }
 

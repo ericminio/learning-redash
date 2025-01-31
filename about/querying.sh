@@ -22,7 +22,7 @@ function test_can_query {
     waiting "Query result from Redash" job_ready $jobId
 
     queryResultId=$(read_job $jobId | json_extract "query_result_id")
-    actual=$(read_query_result_as_csv $queryResultId | csv_remove_headers | join)
+    actual=$(read_query_result_as_csv $queryResultId | remove_first_line | join)
 
     assertequals "$actual" "mouse,keyboard" 
 }
@@ -39,7 +39,7 @@ function test_can_query_with_parameters {
     waiting "Query result from Redash" job_ready $jobId
     
     queryResultId=$(read_job $jobId | json_extract "query_result_id")
-    actual=$(read_query_result_as_csv $queryResultId | csv_remove_headers | join)
+    actual=$(read_query_result_as_csv $queryResultId | remove_first_line | join)
 
     assertequals "$actual" "almost a piano" 
 }

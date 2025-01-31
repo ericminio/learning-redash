@@ -10,15 +10,14 @@ source ./support/testing/waiting.sh
 export REDASH_API_KEY=$(redash_api_key)
 export REDASH_BASE_URL="http://localhost:5000"
 
-source ./brag/sut.sh
+source ./brag/bash/sut.sh
 
-function test_ready {
+function test_flagging {
     executeFile /usr/local/src/schema.sql
     executeFile /usr/local/src/seeds.sql
-    
-    run_sut
-
+    run_flag "keyboard"
     local flagged=$(execute "select name from products where flag = true" | head -n 3 | tail -n 1 | trim)
+
     assertequals "$flagged" "keyboard" 
 }
 

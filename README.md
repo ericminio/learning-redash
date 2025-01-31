@@ -7,6 +7,8 @@ cd redash
 ./setup.sh
 ```
 
+Common issue: docker - disk full
+
 ## Run the tests
 
 ```

@@ -16,15 +16,15 @@ function test_can_query {
     execute "insert into products (id, name) values (2, 'keyboard')"
 
     echo "Creating Redash query"
-    queryId=$(create_query 1 "All products" "SELECT id, name FROM products" | json_extract "id")
+    queryId=$(create_query 1 "All products" "SELECT name FROM products" | json_extract "id")
     jobId=$(create_job $queryId | json_extract "id")
 
     waiting "Query result from Redash" job_ready $jobId
 
     queryResultId=$(read_job $jobId | json_extract "query_result_id")
-    actual=$(read_query_result_as_csv $queryResultId | tail -n +2 | oneliner)    
+    actual=$(read_query_result_as_csv $queryResultId | csv_remove_headers | join)
 
-    assertequals "$actual" "1,mouse2,keyboard" 
+    assertequals "$actual" "mouse,keyboard" 
 }
 
 function test_can_query_with_parameters {
@@ -39,7 +39,7 @@ function test_can_query_with_parameters {
     waiting "Query result from Redash" job_ready $jobId
     
     queryResultId=$(read_job $jobId | json_extract "query_result_id")
-    actual=$(read_query_result_as_csv $queryResultId | tail -n +2 | oneliner)    
+    actual=$(read_query_result_as_csv $queryResultId | csv_remove_headers | join)
 
     assertequals "$actual" "almost a piano" 
 }

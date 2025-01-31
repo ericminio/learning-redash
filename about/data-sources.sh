@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./support/redash/apikey.sh
+source ./support/redash/utils.sh
 source ./support/redash/cli.sh
 source ./support/testing/utils.sh
 

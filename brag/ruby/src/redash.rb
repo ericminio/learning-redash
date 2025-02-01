@@ -23,6 +23,6 @@ class TddReadyTest < Test::Unit::TestCase
                 'Content-Type' => 'application/json'
             },
         })
-        assert_equal(200, response.code)
+        assert_equal("data", response.parsed_response[0]['name'])
     end
 end
